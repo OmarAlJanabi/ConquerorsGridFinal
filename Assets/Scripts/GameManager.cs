@@ -14,28 +14,35 @@ public class GameManager : MonoBehaviour
     public Material player2Material;
     public PlayerManager playerManager;
     public ScoreManager scoreManager; // Reference to ScoreManager script
-    private bool allowNextTurn = true; // Flag to allow the next turn
+    public bool allowNextTurn = false; // Flag to allow the next turn
     public GameObject winScreen;
     public TextMeshProUGUI outcomeText;
-   
+    public ScenesManager scenesManager; // Reference to ScenesManager script
+    public AIAgent aiAgent; // Reference to AIAgent script
 
     void Update()
     {
-        // Check if the turn should be allowed
-        if (allowNextTurn)
-        {
-            // Check for player input to take the next turn
-            if (Input.GetMouseButtonDown(0))
-            {
-                // Switch to the next player
-                playerManager.currentPlayer = (playerManager.currentPlayer == Player.Player1) ? Player.Player2 : Player.Player1;
-                allowNextTurn = false; // Disallow the next turn until a box is scored
-            }
-        }
         if (IsGameOver())
         {
             DetermineOutcome();
             ActivateWinScreen();
+            return;
+        }
+
+        if (allowNextTurn)
+        {
+            if (scenesManager.isSinglePlayer && playerManager.currentPlayer == Player.Player2)
+            {
+                // Ensure the AI only makes a move when it's Player 2's turn in single-player mode
+                allowNextTurn = false; // Disallow AI from taking multiple turns
+                aiAgent.MakeMove();
+            }
+            else if (!scenesManager.isSinglePlayer && Input.GetMouseButtonDown(0))
+            {
+                // In multiplayer mode, check for player input to take the next turn
+                playerManager.currentPlayer = (playerManager.currentPlayer == Player.Player1) ? Player.Player2 : Player.Player1;
+                allowNextTurn = false; // Disallow the next turn until a move is made
+            }
         }
     }
 
@@ -55,7 +62,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    bool IsGameOver()
+   public bool IsGameOver()
     {
         int totalScore = scoreManager.player1Score + scoreManager.player2Score;
         return totalScore >= 32;
@@ -63,6 +70,7 @@ public class GameManager : MonoBehaviour
 
     public void CheckBoxCompletion(GameObject wall)
     {
+        bool scoredBox = false;
         foreach (var association in boxToWalls)
         {
             if (association.walls.Contains(wall))
@@ -74,15 +82,22 @@ public class GameManager : MonoBehaviour
                 if (allWallsColored)
                 {
                     ChangeBoxColor(association.box, wall.GetComponent<Renderer>().material.color);
+                    scoredBox = true;
 
-                    // Update the score and allow the next turn
+                    // Update the score
                     scoreManager.UpdateScore(wall.GetComponent<Renderer>().material.color, playerManager);
-                    allowNextTurn = true;
                 }
             }
         }
-    }
 
+        // Allow the same player to take another turn if they scored a box
+        if (!scoredBox)
+        {
+            // Switch to the next player
+            playerManager.currentPlayer = (playerManager.currentPlayer == Player.Player1) ? Player.Player2 : Player.Player1;
+        }
+        allowNextTurn = true; // Allow the next turn for the current player
+    }
 
     private bool IsWallPlayerColor(GameObject wall)
     {
@@ -97,7 +112,6 @@ public class GameManager : MonoBehaviour
 
         // Update the color state of the box
         boxColorStates[box] = true;
-        scoreManager.UpdateScore(color, playerManager);
     }
 
     void DetermineOutcome()
@@ -117,6 +131,7 @@ public class GameManager : MonoBehaviour
         }
         outcomeText.text = outcome;
     }
+
     void ActivateWinScreen()
     {
         winScreen.SetActive(true);

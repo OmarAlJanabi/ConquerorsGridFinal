@@ -2659,6 +2659,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 888890760}
+  gamemanager: {fileID: 2080085412}
+  isSinglePlayer: 1
 --- !u!4 &1343639668
 Transform:
   m_ObjectHideFlags: 0
@@ -3346,6 +3348,59 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.019999996, y: 0.025359344, z: 0.014142992}
   m_Center: {x: -0.10092519, y: -0.00012968846, z: -0.0012890019}
+--- !u!1 &1616745665
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1616745667}
+  - component: {fileID: 1616745666}
+  m_Layer: 0
+  m_Name: TitleManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1616745666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616745665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 385af8565e5b08b459471bb314ed67a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseMenu: {fileID: 888890760}
+  gameManager: {fileID: 2080085413}
+  Difficulty: {fileID: 0}
+  MainMenu: {fileID: 0}
+  red: {fileID: 2135428360}
+  blue: {fileID: 218925064}
+  current: {fileID: 1514198129}
+  scenesManager: {fileID: 1343639667}
+  difficultyLevel: 
+--- !u!4 &1616745667
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616745665}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1006.4301, y: 540, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1626330451 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3068392207332133000, guid: 2aae1a75256abf44daba343404c12fcf, type: 3}
@@ -4219,6 +4274,57 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 235832503693718611, guid: 2aae1a75256abf44daba343404c12fcf, type: 3}
   m_PrefabInstance: {fileID: 265597807}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2048646627
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2048646629}
+  - component: {fileID: 2048646628}
+  m_Layer: 0
+  m_Name: Ai
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2048646628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2048646627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10c80e2403f6a1e408a59197e90e29c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 2080085413}
+  playerManager: {fileID: 908296552}
+  scoreManager: {fileID: 1795262121}
+  easyDepth: 2
+  mediumDepth: 3
+  hardDepth: 5
+  scenesManager: {fileID: 1616745666}
+--- !u!4 &2048646629
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2048646627}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1006.4301, y: 540, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2080085412
 GameObject:
   m_ObjectHideFlags: 0
@@ -4349,8 +4455,11 @@ MonoBehaviour:
   player2Material: {fileID: 2100000, guid: da16833b26b451d41b2619ab1b97c2dc, type: 2}
   playerManager: {fileID: 908296552}
   scoreManager: {fileID: 1795262121}
+  allowNextTurn: 1
   winScreen: {fileID: 879462596}
   outcomeText: {fileID: 1481322845}
+  scenesManager: {fileID: 0}
+  aiAgent: {fileID: 0}
 --- !u!4 &2080085414
 Transform:
   m_ObjectHideFlags: 0
@@ -4597,3 +4706,5 @@ SceneRoots:
   - {fileID: 1865834329}
   - {fileID: 1547591283}
   - {fileID: 1980162284}
+  - {fileID: 2048646629}
+  - {fileID: 1616745667}

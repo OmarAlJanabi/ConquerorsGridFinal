@@ -19,6 +19,11 @@ public class ClickToChangeColor : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>(); // Find the GameManager in the scene
     }
 
+    public void SimulateClick()
+    {
+        OnMouseDown();
+    }
+
     void OnMouseDown()
     {
         if (!GetComponent<Collider>().enabled)
@@ -36,8 +41,7 @@ public class ClickToChangeColor : MonoBehaviour
         // Notify the GameManager that the wall color has changed
         gameManager.CheckBoxCompletion(gameObject);
 
-        // Switch to the next player
-        playerManager.currentPlayer = (playerManager.currentPlayer == Player.Player1) ? Player.Player2 : Player.Player1;
+        // Reset allowNextTurn after checking for box completion
+        gameManager.allowNextTurn = true;
     }
 }
-
