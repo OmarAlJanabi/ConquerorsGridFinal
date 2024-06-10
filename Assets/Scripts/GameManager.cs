@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
    public bool IsGameOver()
     {
         int totalScore = scoreManager.player1Score + scoreManager.player2Score;
-        return totalScore >= 32;
+        return totalScore >= 16;
     }
 
     public void CheckBoxCompletion(GameObject wall)

@@ -5,6 +5,7 @@ public class ClickToChangeColor : MonoBehaviour
     private Renderer rend;
     private PlayerManager playerManager;
     private GameManager _gameManager;
+    public ScenesManager scenesManager;
 
     public GameManager gameManager // Expose gameManager through a property
     {
@@ -43,5 +44,10 @@ public class ClickToChangeColor : MonoBehaviour
 
         // Reset allowNextTurn after checking for box completion
         gameManager.allowNextTurn = true;
+          if (!scenesManager.isSinglePlayer)
+        {
+            // In multiplayer mode, check for player input to take the next turn
+            playerManager.currentPlayer = (playerManager.currentPlayer == Player.Player1) ? Player.Player2 : Player.Player1;
+        }
     }
 }
